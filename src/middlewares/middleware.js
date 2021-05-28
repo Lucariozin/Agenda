@@ -1,3 +1,9 @@
+exports.errorMessages = (req, res, next) => {
+   res.locals.errors = req.flash('errors');
+   res.locals.success = req.flash('success');
+   
+   next();
+};
 
 // Middlewares de segurança
 exports.checkCsrfError = (err, req, res, next) => {

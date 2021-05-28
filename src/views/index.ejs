@@ -1,0 +1,34 @@
+<%- include('includes/head') %>
+
+  <main class="section">
+    <h1>Contacts</h1>
+    <p>Your contacts are below</p>
+
+    <% if (success.length > 0) { %>
+      <%- include('includes/messages/success') %>
+    <% } %>
+
+    <div class="contacts">
+
+      <% contacts.forEach(contact => { %>
+        <div class="contact-card">
+          <ul>
+            <li class="name"><%= contact.firstName %> <%= contact.lastName %></li>
+            <li><%= contact.telefone %></li>
+            <li><%= contact.email %></li>
+          </ul>
+          <div class="edit-delete">
+            <a href="#" class="edit"></a>
+            <a href="/contact/delete/<%= contact._id %>" class="delete"></a>
+          </div>
+        </div>
+      <% }) %>
+
+    </div>
+  </main>
+
+  <footer>
+    <a href="https://github.com/Lucariozin" rel="nofollow" target="_blank">Feito com <span>❤</span> por Lucas Felix</a>
+  </footer>
+
+<%- include('includes/footer') %>

@@ -1,0 +1,43 @@
+<%- include('includes/head') %>
+
+  <main class="section">
+    <h1>Contact</h1>
+    <p>Create or edit a contact</p>
+
+    <% if (errors.length > 0) { %>
+      <%- include('includes/messages/errors') %>
+    <% } %>
+    
+    <div class="contact-data">
+      <form action="/contact/register" method="POST">
+        <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+        
+        <div class="name-container">
+          <div class="campo">
+            <label for="first-name">First name</label>
+            <input autocomplete="off" type="text" id="first-name" name="firstName">
+          </div>
+          <div class="campo">
+            <label for="last-name">Last name</label>
+            <input autocomplete="off" type="text" id="last-name" name="lastName">
+          </div>
+          <div class="campo">
+            <label for="telefone">Telefone</label>
+            <input autocomplete="off" type="tel" id="telefone" name="telefone">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input autocomplete="off" type="email" id="email" name="email">
+        </div>
+
+        <div class="contact-buttons">
+          <button type="submit" class="confirm-button">Confirm</button>
+          <a href="/" class="cancel-button">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+<%- include('includes/footer') %>

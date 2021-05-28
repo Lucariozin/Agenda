@@ -23,7 +23,7 @@ const routes = require('./routes');
 const path = require('path');
 const csrf = require('csurf');
 //const helmet = require('helmet');
-const { checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware');
+const { errorMessages, checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware');
 
 //app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
@@ -51,6 +51,7 @@ app.use(csrf());
 
 app.use(checkCsrfError);
 app.use(csrfMiddleware);
+app.use(errorMessages);
 
 app.use(routes);
 
