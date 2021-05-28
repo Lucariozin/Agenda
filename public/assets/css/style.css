@@ -66,6 +66,8 @@ footer span {
   position: relative;
   top: 0.2rem;
   cursor: pointer;
+  border: none;
+  background-color: var(--white-color);
 }
 
 .search {
@@ -257,6 +259,7 @@ footer span {
 }
 
 .contact-data .confirm-button {
+  min-width: 85px;
   background-color: var(--secondery-color);
   border: 0.2rem solid var(--secondery-dark);
   color: var(--white-color);
@@ -286,7 +289,7 @@ footer span {
   border: 0.2rem solid var(--red-color);
 }
 
-@media (max-width: 30rem) {
+@media (max-width: 450px) {
   .schedule-img {
     display: none;
   }

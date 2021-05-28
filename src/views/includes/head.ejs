@@ -14,10 +14,11 @@
         <div class="schedule-img"></div>
       </a>
       <div class="search-container">
-        <div class="search">
-          <input placeholder="Search contact" type="text" name="search" id="">
-          <div class="search-img"></div>
-        </div>
+        <form action="/" method="POST" class="search">
+          <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+          <input autocomplete="off" placeholder="Search contact" type="text" name="search" id="">
+          <button type="submit" class="search-img"></button>
+        </form>
         <div class="new-contact">
           <a href="/contact">New contact</a>
         </div>

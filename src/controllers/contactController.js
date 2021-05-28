@@ -27,7 +27,7 @@ exports.register = (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  if (!req.params.id) return;
+  if (!req.params.id) return res.redirect('index');
 
   try {
     const contactDeleted = await Contact.delete(req.params.id);
@@ -38,4 +38,36 @@ exports.delete = async (req, res) => {
     console.log(e);
     return res.render('404');
   }
+};
+
+exports.edit = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const contact = await Contact.findContact(id);
+
+    return res.render('editContact', { contact });
+  } catch(e) {
+    console.log(e);
+    return res.render('404');
+  }
+};
+
+exports.editContact = async (req, res) => {
+  if (req.body.id.length == 0) return res.render('404');
+
+  const contact = new Contact(req.body);
+  try {
+    await contact.edit();
+  } catch(e) {
+    console.log(e);
+    return res.render('404');
+  }
+
+  if (contact.errors.length > 0) {
+    req.flash('errors', contact.errors);
+    return req.session.save(() => res.redirect(`/contact/edit/${req.body.id}`));
+  }
+
+  req.flash('success', 'Contato editado com sucesso!');
+  return req.session.save(() => res.redirect('/'));
 };

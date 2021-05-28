@@ -5,6 +5,7 @@ const validator = require('validator');
 const ContactSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: false, default: '' },
+  completeName: { type: String, require: false, default: '' },
   telefone: { type: String, required: false, default: '' },
   email: { type: String, required: false, default: '' },
   date: { type: Date, default: Date.now }
@@ -24,9 +25,39 @@ class Contact {
     await ContactModel.create(this.body);
   }
 
+  async edit() {
+    this.validate();
+
+    const id = this.body.id;
+    delete this.body['id'];
+
+    if (this.errors.length > 0) return;
+
+    await ContactModel.findByIdAndUpdate(id, this.body, { new: true });
+  }
+
+  // Static methods
+
   static async delete(id) {
     const contact = await ContactModel.findOneAndDelete({ _id: id });
     return contact;
+  }
+
+  static async searchContacts(caracter) {
+    const contacts = await ContactModel.find({"completeName": new RegExp(caracter)})
+      .sort({ date: -1 });
+    return contacts;
+  }
+
+  static async findContact(id) {
+    const contact = await ContactModel.findById(id);
+    return contact;
+  }
+
+  static async allContacts() {
+    const contacts = await ContactModel.find()
+      .sort({ date: -1 });
+    return contacts;
   }
 
   validate() {
@@ -52,12 +83,9 @@ class Contact {
       }
     }
 
-    delete this.body['_csrf'];
-  }
+    this.body.completeName = `${this.body.firstName} ${this.body.lastName}`;
 
-  static async allContacts() {
-    const contacts = await ContactModel.find();
-    return contacts;
+    delete this.body['_csrf'];
   }
 }
 
