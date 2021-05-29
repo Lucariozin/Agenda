@@ -53,9 +53,11 @@ exports.edit = async (req, res) => {
 };
 
 exports.editContact = async (req, res) => {
-  if (req.body.id.length == 0) return res.render('404');
+  if (req.body.id.length < 1) return res.render('404');
 
+  const id = req.body.id;
   const contact = new Contact(req.body);
+  
   try {
     await contact.edit();
   } catch(e) {
@@ -65,7 +67,7 @@ exports.editContact = async (req, res) => {
 
   if (contact.errors.length > 0) {
     req.flash('errors', contact.errors);
-    return req.session.save(() => res.redirect(`/contact/edit/${req.body.id}`));
+    return req.session.save(() => res.redirect(`/contact/edit/${id}`));
   }
 
   req.flash('success', 'Contato editado com sucesso!');
