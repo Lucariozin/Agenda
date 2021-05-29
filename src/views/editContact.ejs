@@ -8,8 +8,10 @@
       <%- include('includes/messages/errors') %>
     <% } %>
     
+    <div class="error-messages" style="display: none;"></div>
+
     <div class="contact-data">
-      <form action="/contact/edit" method="POST">
+      <form class="form-contact" action="/contact/edit" method="POST">
         <input type="hidden" name="_csrf" value=<%= csrfToken %>>
         
         <input type="hidden" name="id" value="<%= contact._id %>">

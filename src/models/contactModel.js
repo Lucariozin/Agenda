@@ -22,6 +22,8 @@ class Contact {
   async register() {
     this.validate();
 
+    if (this.errors.length > 0) return;
+
     await ContactModel.create(this.body);
   }
 
