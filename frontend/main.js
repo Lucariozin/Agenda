@@ -26,12 +26,12 @@ if (formContact) {
 
     if (errors.length > 0) {
       divErrors.style.display = "block";
-
+      divErrors.innerHTML = '';
+      
       for (let erro of errors) {
         divErrors.innerHTML += `${erro}<br>`;
       }
     } else {
-      console.log('ENVIEIIIII')
       el.submit();
     }
   });

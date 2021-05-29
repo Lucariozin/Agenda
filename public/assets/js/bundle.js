@@ -7445,6 +7445,7 @@ if (formContact) {
 
     if (errors.length > 0) {
       divErrors.style.display = "block";
+      divErrors.innerHTML = '';
 
       var _iterator = _createForOfIteratorHelper(errors),
           _step;
@@ -7460,7 +7461,6 @@ if (formContact) {
         _iterator.f();
       }
     } else {
-      console.log('ENVIEIIIII');
       el.submit();
     }
   });
